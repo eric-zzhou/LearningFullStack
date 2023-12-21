@@ -1,5 +1,6 @@
 import "./Paginator.css";
 import { ChevronUpCircle, ChevronDownCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 
 /**
  * Hey there! Welcome to Homework 3!
@@ -42,20 +43,23 @@ type Props = {
 
 const Paginator = (props: Props) => {
     // Put reactive logic here!
+    const [pg, setPg] = useState(props.minLimit ?? 1);
 
     return (
-        <>
+         <>
             <h1>HW3</h1>
             <div className='row'>
                 {/* Modify this button so that it increments the page you're on! */}
-                <button data-testid='incrementpage'>
+                <button data-testid='incrementpage' onClick={() => {
+                        setPg(Math.min(props.maxLimit, pg + 1))
+                    }}>
                     <ChevronUpCircle size={64} />
                 </button>
                 <h2 data-testid='pagenumber' className='pagenumber'>
-                    {/* Display the page number you're currently on here! */}
+                    {pg}
                 </h2>
                 {/* Modify this button so that it decrements the page you're on! */}
-                <button data-testid='decrementpage'>
+                <button data-testid='decrementpage' onClick={() => setPg(Math.max(props.minLimit ?? 1, pg - 1))}>
                     <ChevronDownCircle size={64} />
                 </button>
             </div>
