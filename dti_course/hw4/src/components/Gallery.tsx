@@ -82,20 +82,20 @@ const Gallery = <T extends { name: string }>({
     const [search, setSearch] = useState("");
 
     const itemsToDisplay: T[] = useMemo(() => {
-        // TODO: Implement some logic to "derive" the items that we should display on this page based on our state!
+        // Implement some logic to "derive" the items that we should display on this page based on our state!
         const adjust: number = (page - 1) * itemsPerPage;
         return data.filter(x => x.name.toLowerCase().includes(search.toLowerCase().trim())).slice(adjust, adjust + itemsPerPage);
     }, [search, page, itemsPerPage, data]);
 
     const lastPossiblePage = useMemo(() => {
-        // TODO: Implement some logic to "derive" the last possible page number that a user can go to based on our state!
+        // Implement some logic to "derive" the last possible page number that a user can go to based on our state!
         return Math.ceil(data.filter(x => x.name.toLowerCase().includes(search.toLowerCase().trim())).length / itemsPerPage);
     }, [search, data, itemsPerPage]);
 
     return (
         <div className='body'>
             <h1>Gallery</h1>
-            {/* TODO: Modify this input so that it reflects and updates the search state. */}
+            {/* Modify this input so that it reflects and updates the search state. */}
             <input data-testid='search' type='text' placeholder='Search' onChange= { x => setSearch(x.target.value) }/>
 
             <div className='gallery'>
@@ -106,7 +106,7 @@ const Gallery = <T extends { name: string }>({
                 ))}
             </div>
 
-            {/* TODO: Pass the correct props down to Paginator. */}
+            {/* Pass the correct props down to Paginator. */}
             <Paginator maxLimit={ lastPossiblePage } page={ page } setPage={ setPage }/>
         </div>
     );
