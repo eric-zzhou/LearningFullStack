@@ -83,8 +83,7 @@ const Gallery = <T extends { name: string }>({
 
     const itemsToDisplay: T[] = useMemo(() => {
         // Implement some logic to "derive" the items that we should display on this page based on our state!
-        const adjust: number = (page - 1) * itemsPerPage;
-        return data.filter(x => x.name.toLowerCase().includes(search.toLowerCase().trim())).slice(adjust, adjust + itemsPerPage);
+        return data.filter(x => x.name.toLowerCase().includes(search.toLowerCase().trim())).slice((page - 1) * itemsPerPage, page * itemsPerPage);
     }, [search, page, itemsPerPage, data]);
 
     const lastPossiblePage = useMemo(() => {
