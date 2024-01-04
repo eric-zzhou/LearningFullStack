@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate as navigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
 
 const NotePage = () => {
     let noteId = useParams().id;
+    let navigate = useNavigate();
     let [note, setNote] = useState(null);
 
     useEffect(() => {
@@ -48,13 +49,13 @@ const NotePage = () => {
         navigate("/");
     };
 
-    let handleSubmit = () => {
+    let handleSubmit = async () => {
         if (noteId !== "new" && (note.body === null || note.body === "")) {
-            deleteNote();
+            await deleteNote();
         } else if (noteId !== "new") {
-            updateNote();
+            await updateNote();
         } else if (noteId === "new" && note !== null && note.body !== null) {
-            createNote();
+            await createNote();
         }
         navigate("/");
     };
