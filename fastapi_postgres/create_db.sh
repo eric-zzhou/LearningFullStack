@@ -15,11 +15,11 @@ else
 fi
 
 # Grant all privileges on the database to the user
-echo "Granting privileges to user '$TARGET_USER'..."
+echo "Granting privileges to user '$DB_USER'..."
 PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c "
-GRANT ALL PRIVILEGES ON DATABASE \"$TARGET_DB\" TO $TARGET_USER;
-ALTER ROLE $TARGET_USER CREATEDB;
-ALTER ROLE $TARGET_USER CREATEROLE;
+GRANT ALL PRIVILEGES ON DATABASE \"$TARGET_DB\" TO $DB_USER;
+ALTER ROLE $DB_USER CREATEDB;
+ALTER ROLE $DB_USER CREATEROLE;
 "
 
 echo "Database and permissions set successfully."
