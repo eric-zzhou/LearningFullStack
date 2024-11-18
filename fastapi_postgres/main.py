@@ -22,7 +22,6 @@ class QuestionBase(BaseModel):
 
 def get_db():
     db = SessionLocal()
-    db.expire_all()
     try:
         yield db
     finally:
@@ -32,6 +31,7 @@ def get_db():
 db_dependency = Annotated[Session, Depends(get_db)]
 
 
+@app.get("/")
 @app.get("/questions/")
 async def read_questions(db: db_dependency):
     result = db.query(models.Questions).all()

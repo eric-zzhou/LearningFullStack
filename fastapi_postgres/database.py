@@ -9,14 +9,13 @@ import os
 dotenv.load_dotenv()
 
 # Accessing the database credentials from environment variables
-DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 TARGET_DB = os.getenv("TARGET_DB")
 
 # Connect to the PostgreSQL server using the default "postgres" user
-URL_DATABASE = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{TARGET_DB}"
+URL_DATABASE = f"postgresql://postgres:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{TARGET_DB}"
 
 engine = create_engine(URL_DATABASE)
 
