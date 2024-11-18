@@ -2,10 +2,12 @@ from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Annotated
 import models
-from database import engine, SessionLocal
+from database import engine, SessionLocal, create_database_and_permissions
 from sqlalchemy.orm import Session
 
 app = FastAPI()
+create_database_and_permissions()
+
 models.Base.metadata.create_all(bind=engine)
 
 
@@ -28,6 +30,14 @@ def get_db():
 
 
 db_dependency = Annotated[Session, Depends(get_db)]
+
+
+@app.get("/questions/")
+async def read_questions(db: db_dependency):
+    result = db.query(models.Questions).all()
+    if not result:
+        raise HTTPException(status_code=404, detail="Questions not found")
+    return result
 
 
 @app.get("/questions/{question_id}")
