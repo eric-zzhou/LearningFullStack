@@ -2,11 +2,10 @@ from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Annotated
 import models
-from database import engine, SessionLocal, create_database_and_permissions
+from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 
 app = FastAPI()
-create_database_and_permissions()
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -23,6 +22,7 @@ class QuestionBase(BaseModel):
 
 def get_db():
     db = SessionLocal()
+    db.expire_all()
     try:
         yield db
     finally:
